@@ -1,37 +1,38 @@
-﻿using Exercise.ViewModels;
+﻿using Exercise.Models;
+using Exercise.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace Exercise
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace Exercise.Views
 {
-	public partial class MainPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MainPageCoded : ContentPage
+    {
         private UserViewModel viewModel
         {
             get { return BindingContext as UserViewModel; }
             set { BindingContext = value; }
         }
 
-        public MainPage()
-		{
-			InitializeComponent();
+        public MainPageCoded()
+        {
+            InitializeComponent();
 
             BindingContext = new UserViewModel(new PageService());
+
+            this.Content = viewModel.GetListView();
         }
 
         protected override void OnAppearing()
         {
             viewModel.GetAllCommand.Execute(null);
             base.OnAppearing();
-        }
-
-        public void OnUserSelected(object sender,SelectedItemChangedEventArgs e)
-        {
-            viewModel.SelectedUserCommand.Execute(e.SelectedItem);
         }
     }
 }

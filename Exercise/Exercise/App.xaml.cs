@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exercise.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,8 @@ namespace Exercise
 		{
 			InitializeComponent();
 
-			MainPage = new Exercise.MainPage();
-		}
+            MainPage = new NavigationPage(new MainPage());
+        }
 
 		protected override void OnStart ()
 		{
